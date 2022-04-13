@@ -41,4 +41,9 @@ class Item extends Model
             'votes' => 0
         ]);
     }
+
+    public static function dapatkanNomorInvoiceTerakhir()
+    {
+        date("ymd");
+    }
 }
