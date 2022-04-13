@@ -58,6 +58,7 @@ class ItemController extends Controller
             for ($i = 1; $i <= $request->totalItems; $i++) {
                 Item::tambahPesanan();
             }
+
             return redirect('/admin/himpunan_mahasiswa')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
         }
     }
