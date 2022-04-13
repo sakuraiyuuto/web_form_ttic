@@ -59,7 +59,6 @@ class ItemController extends Controller
                 Item::tambahPesanan();
             }
 
-
             return redirect('/admin/himpunan_mahasiswa')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
         }
     }
