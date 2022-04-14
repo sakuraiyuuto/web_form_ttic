@@ -12,7 +12,7 @@ class Item extends Model
 
     public static function getItems()
     {
-        $informasiTerbaru = DB::table('tbl_gerai')
+        $items = DB::table('tbl_gerai')
             ->join('tbl_menu_gerai', 'tbl_gerai.id_gerai', '=', 'tbl_menu_gerai.id_gerai')
             ->select(
                 'tbl_menu_gerai.nama_menu',
@@ -26,7 +26,7 @@ class Item extends Model
             ->where('tbl_gerai.id_gerai', '=', '221')
             ->where('tbl_menu_gerai.is_active', '=', '1');
 
-        return $informasiTerbaru;
+        return $items;
     }
 
     public static function tambahPesanan()
