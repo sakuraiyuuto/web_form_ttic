@@ -15,6 +15,7 @@ class Item extends Model
         $items = DB::table('tbl_gerai')
             ->join('tbl_menu_gerai', 'tbl_gerai.id_gerai', '=', 'tbl_menu_gerai.id_gerai')
             ->select(
+                'tbl_menu_gerai.id_menu',
                 'tbl_menu_gerai.nama_menu',
                 'tbl_menu_gerai.link_gambar_menu',
                 'tbl_menu_gerai.harga',

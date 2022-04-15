@@ -42,24 +42,25 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $arrayValidator = array();
-        for ($i = 1; $i <= $request->totalItems; $i++) {
-            array_push($arrayValidator, "'item_" . $i . "' => 'required'");
-        }
+        dd($request);
+        // $arrayValidator = array();
+        // for ($i = 1; $i <= $request->totalItems; $i++) {
+        //     array_push($arrayValidator, "'item_" . $i . "' => 'required'");
+        // }
 
-        $validator = Validator::make($request->all(), [
-            $arrayValidator
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     $arrayValidator
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect('/admin/himpunan_mahasiswa')->with('alert', 'Ada kesalahan data, coba lagi.');
-        } else {
+        // if ($validator->fails()) {
+        //     return redirect('/admin/himpunan_mahasiswa')->with('alert', 'Ada kesalahan data, coba lagi.');
+        // } else {
 
-            for ($i = 1; $i <= $request->totalItems; $i++) {
-                Item::tambahPesanan();
-            }
+        //     for ($i = 1; $i <= $request->totalItems; $i++) {
+        //         Item::tambahPesanan();
+        //     }
 
-            return redirect('/admin/himpunan_mahasiswa')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
-        }
+        //     return redirect('/admin/himpunan_mahasiswa')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
+        // }
     }
 }

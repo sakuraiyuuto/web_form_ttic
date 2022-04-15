@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Pesanan</h1>
+                    <h1 class="m-0">Formulir Pemesanan</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -30,63 +30,38 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form id="regForm" class="from-prevent-multiple-submits" action="{{ url('admin/sejarah/update') }}"
+            <form action="{{url('/')}}" id="regForm" class="from-prevent-multiple-submits"
                 method="POST">
-                @method('patch')
                 @csrf
-                <div class="tab">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">WEB FORM TTIC</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="card-body">
-                                    <img src="{{ url('images/welcome.jpg') }}" style="width:100%;">
-                                    <input type="hidden" value="kontol" placeholder="First name..."
-                                        oninput="this.className = ''" name="fname"></p>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card-body">
-                                    <div class="h1">assadasdasd</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="tab">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">SYARAT DAN KETENTUAN</h3>
                         </div>
-
                         <div class="row">
-
-                            <div class="col-6">
-                                <!-- /.card-header -->
+                            <div class="col-4">
                                 <div class="card-body">
-                                    <H3>1. Pemesanan/Order mulai dibuka pada tanggal 26 Januari 2022 mulai dari pukul
-                                        07.00 - 14.00</H3>
-                                    <H3>2. Pemesanan/Order hanya dapat dilakukan dengan menggunakan link goggle form ini
-                                    </H3>
-                                    <H3>3. Pengantaran barang pesanan dilakukan pada tanggal 26 Januari 2022 mulai pukul
+                                    <img src="{{ url('images/welcome.jpg') }}" style="width:100%;height:500px;object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h2>Syarat Dan Ketentuan</h2>
+                                    <p>1. Pemesanan/Order mulai dibuka pada tanggal 26 Januari 2022 mulai dari pukul 07.00 - 14.00.
+                                    </p>
+                                    <p>2. Pemesanan/Order hanya dapat dilakukan dengan menggunakan formulir online ini.
+                                    </p>
+                                    <p>3. Pengantaran barang pesanan dilakukan pada tanggal 26 Januari 2022 mulai pukul
                                         07.00 - 22.00, jika pengantaran di tanggal tersebut belum selesai, maka
-                                        pengantaran dilanjutkan pada tanggal 27 Januari 2022 mulai pukul 07.00 - 22.00
-                                    </H3>
-                                    <H3>4. Pemesanan hanya dapat dilakukan untuk 1 Nama dengan 1 Alamat Antar yang sama.
-                                        Pemesanan melebihi batas tersebut tidak akan diproses</H3>
+                                        pengantaran dilanjutkan pada tanggal 27 Januari 2022 mulai pukul 07.00 - 22.00.
+                                    </p>
+                                    <p>4. Pemesanan hanya dapat dilakukan untuk 1 Nama dengan 1 Alamat Antar yang sama.
+                                        Pemesanan melebihi batas tersebut tidak akan diproses.</p>
+                                    <input type="checkbox" id="persetujuan" name="persetujuan" value="Setuju" required>
+                                    <label for="persetujuan"> Dengan ini saya menyetujui syarat dan ketentuan diatas *</label><br>
                                     <!-- /.card-body -->
                                 </div>
                             </div>
-
-                            <div class="col-6">
-                                <div class="card-body">
-                                    <img src="{{ url('images/welcome.jpg') }}" style="width:100%;">
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -99,14 +74,14 @@
 
                         <div class="row">
 
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="card-body">
-                                    <img src="{{ url('images/3.jpg') }}"
-                                        style="width:100%;height:100px;object-fit:cover;">
+                                    <img src="{{ url('images/2.jpg') }}"
+                                        style="width:100%;height:300px;object-fit:cover;">
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-8">
                                 <!-- /.card-header -->
                                 <div class="card-body">
 
@@ -143,42 +118,48 @@
 
                         <div class="row">
 
-                            <div class="col-6">
+                            <div class="col-8">
 
                                 <div class="card-body">
+                                    <?php
+                                    $perulangan = 0;
+                                    ?>
                                     @foreach($items as $item)
+                                    <?php
+                                    $perulangan++;
+                                    ?>
                                     <div class="form-group mt-2">
                                         <label for="kode_item">{{$item->nama_menu}}</label><br>
-                                        <select id="change_data_tambah" name="kode_item" class="form-control mt-0"
+                                        <input type="hidden" value="{{$item->id_menu}}" name="id_menu_{{$perulangan}}">
+                                        <select name="jumlah_order_{{$perulangan}}" class="form-control mt-0" required
                                             required>
-                                            <option disabled selected value="">Pilih Kode Item</option>
-                                            @foreach($item->min_order to $item->max_order)
-                                            <?php
-                                            $order = $min_order;
-                                            ?>
-                                            <option value="OPTION 1">{{$order}}</option>
+                                            @if($item->min_order > $item->max_order)
+                                            @for ($i = $item->max_order; $i <= $item->min_order; $i++)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                            @else
+                                            @for ($i = $item->min_order; $i <= $item->max_order; $i++)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                            @endif
+                                            
                                         </select>
                                     </div>
 
                                     @endforeach
+                                    <input type="hidden" value="{{$perulangan}}" name="perulangan">
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="card-body">
-                                    <img src="{{ url('images/welcome.jpg') }}" style="width:100%;">
+                                    <img src="{{ url('images/3.jpg') }}" style="width:100%;height:100%;object-fit:cover;">
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                
-
-                
-
-
 
                 <div style="overflow:auto;">
                     <div class="text-center">
@@ -189,7 +170,6 @@
 
                 <!-- Circles which indicates the steps of the form: -->
                 <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
                     <span class="step"></span>
                     <span class="step"></span>
                     <span class="step"></span>
