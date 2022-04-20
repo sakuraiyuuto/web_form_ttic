@@ -40,7 +40,7 @@
             height: 15px;
             width: 15px;
             margin: 0 2px;
-            background-color: #bbbbbb;
+            background-color: #5e5e5e;
             border: none;  
             border-radius: 50%;
             display: inline-block;
@@ -53,7 +53,7 @@
 
             /* Mark the steps that are finished and valid: */
         .step.finish {
-            background-color: #04AA6D;
+            background-color: #fac400;
         }
 
         .tab {
