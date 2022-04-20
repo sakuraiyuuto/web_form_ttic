@@ -10,7 +10,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    public static function getItems()
+    public static function getItems($id)
     {
         $items = DB::table('tbl_gerai')
             ->join('tbl_menu_gerai', 'tbl_gerai.id_gerai', '=', 'tbl_menu_gerai.id_gerai')
@@ -24,23 +24,17 @@ class Item extends Model
                 'tbl_menu_gerai.min_order',
                 'tbl_menu_gerai.max_order'
             )
-            ->where('tbl_gerai.id_gerai', '=', '221')
+            ->where('tbl_gerai.id_gerai', '=', $id)
             ->where('tbl_menu_gerai.is_active', '=', '1');
 
         return $items;
     }
 
-    public static function tambahPesanan()
+    public static function getGerai($id)
     {
-        DB::table('users')->insert([
-            'email' => 'kayla@example.com',
-            'votes' => 0
-        ]);
+        $gerai = DB::table('tbl_gerai')->where('id_gerai', '=', $id)->first();
 
-        DB::table('users')->insert([
-            'email' => 'kayla@example.com',
-            'votes' => 0
-        ]);
+        return $gerai;
     }
 
     public static function dapatkanNomorInvoiceTerakhir()
@@ -51,19 +45,17 @@ class Item extends Model
             ->first();
 
         if ($invoiceTerakhir == null) {
-            $kodeTerbaru = 'BK' . date('y-m-d') . '0001';
+            $kodeTerbaru = 'BK' . date('ymd') . '0001';
+        } else {
+            $nomor_invoice = $invoiceTerakhir->no_invoice;
+            $nomorKodeTerakhir = substr($nomor_invoice, 8, 4);
+
+            $angkaKodeTerbaru = intval($nomorKodeTerakhir) + 1;
+
+            $nomorKodeTerbaru = sprintf("%04d", $angkaKodeTerbaru);
+
+            $kodeTerbaru = 'BK' . date('ymd') . $nomorKodeTerbaru;
         }
-
-        //BK2203160009
-        //BK2203160010
-        $nomor_invoice = $invoiceTerakhir->no_invoice;
-        $nomorKodeTerakhir = substr($nomor_invoice, 7, 4);
-
-        $angkaKodeTerbaru = intval($nomorKodeTerakhir) + 1;
-
-        $nomorKodeTerbaru = sprintf("%04d", $angkaKodeTerbaru);
-
-        $kodeTerbaru = 'BK' . date('y-m-d') . $nomorKodeTerbaru;
 
         return $kodeTerbaru;
     }
@@ -71,21 +63,22 @@ class Item extends Model
     public static function tambahInvoice(
         $nomorInvoice,
         $idPelanggan,
-        $catatan
+        $catatan,
+        $alamatAntar
     ) {
-        $invoice = DB::table('tbl_invoice')->insert(
+        $invoice = DB::table('tbl_invoice')->insertGetId(
             [
                 'no_invoice' => $nomorInvoice,
                 'id_pelanggan' => $idPelanggan,
                 'id_kurir' => null,
-                'invoice_date' => date("Y-m-d h:i:sa"),
+                'invoice_date' => date("Y-m-d h:i:s"),
                 'total' => 0,
                 'is_finish' => 1,
                 'is_confirmed' => 0,
                 'is_on_deliver' => 0,
                 'is_pick_up' => 0,
                 'catatan' => $catatan,
-
+                'detail_alamat_antar' => $alamatAntar
             ]
         );
 
@@ -111,7 +104,7 @@ class Item extends Model
             [
                 'id_invoice' => $idInvoice,
                 'id_pelanggan' => $idPelanggan,
-                'waktu_order' => '',
+                'waktu_order' => date("Y-m-d h:i:s"),
                 'nama_resto' => $namaResto,
                 'item_order' => $itemOrder,
                 'alamat_order' => $alamatOrder,
@@ -132,5 +125,12 @@ class Item extends Model
         );
 
         return $orderMakanan;
+    }
+
+    public static function getMenuGerai($id)
+    {
+        $menuGerai = DB::table('tbl_menu_gerai')->where('id_menu', '=', $id)->first();
+
+        return $menuGerai;
     }
 }
