@@ -47,7 +47,8 @@
                                         Pemesanan melebihi batas tersebut tidak akan diproses.</p>
                                     <input type="checkbox" id="persetujuan" name="persetujuan" value="Setuju" required>
                                     <label for="persetujuan"> Dengan ini saya menyetujui syarat dan ketentuan diatas
-                                        </label><br>
+                                        *</label><br>
+                                    <p class="mt-5">*Wajib diisi.</p>
                                     <!-- /.card-body -->
                                 </div>
                             </div>
@@ -210,9 +211,9 @@
             // If a field is empty...
             if (y[i].type=='checkbox') {
                 if (y[i].checked){
-                    return true;
+                    y[i].className += " valid";
                 }else{
-                    return false;
+                    y[i].className += " invalid";
                     valid = false;
                 }
             }else{
