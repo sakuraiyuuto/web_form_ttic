@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', ItemController::class);
 Route::resource('/login', LoginController::class);
+
+
+Route::get('/pemesanan', [LoginController::class, 'index']);
+Route::post('/login/authentication', [LoginController::class, 'authentication']);
