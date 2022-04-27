@@ -3,17 +3,9 @@
 @section('title', 'Pesanan')
 
 @section('container')
-<div class="content-wrapper col-12" style="width:100%;padding-left:0;margin-left:0;">
+<div class="content-wrapper col-12" style="width:100%;padding-left:0;margin-left:0;padding-top:20px">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Formulir Pemesanan</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
+
 
     <!-- Alert Status -->
     @if (session('status'))
@@ -30,24 +22,20 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <form action="{{url('/')}}" id="regForm" class="from-prevent-multiple-submits"
-                method="POST">
+            <form action="{{url('/')}}" id="regForm" class="from-prevent-multiple-submits" method="POST">
                 @csrf
-                <div class="tab">
-                    <div class="card">
+
+                <div class="card">
+                    <div class="tab">
                         <div class="card-header">
                             <h3 class="card-title">SYARAT DAN KETENTUAN</h3>
                         </div>
                         <div class="row">
-                            <div class="col-4">
-                                <div class="card-body">
-                                    <img src="{{ url('images/welcome.jpg') }}" style="width:100%;height:500px;object-fit:cover;">
-                                </div>
-                            </div>
-                            <div class="col-8">
+                            <div class="col-12">
                                 <div class="card-body">
                                     <h2>Syarat Dan Ketentuan</h2>
-                                    <p>1. Pemesanan/Order mulai dibuka pada tanggal 26 Januari 2022 mulai dari pukul 07.00 - 14.00.
+                                    <p>1. Pemesanan/Order mulai dibuka pada tanggal 26 Januari 2022 mulai dari pukul
+                                        07.00 - 14.00.
                                     </p>
                                     <p>2. Pemesanan/Order hanya dapat dilakukan dengan menggunakan formulir online ini.
                                     </p>
@@ -55,36 +43,32 @@
                                         07.00 - 22.00, jika pengantaran di tanggal tersebut belum selesai, maka
                                         pengantaran dilanjutkan pada tanggal 27 Januari 2022 mulai pukul 07.00 - 22.00.
                                     </p>
-                                    <p>4. Pemesanan hanya dapat dilakukan untuk 1 Nama dengan 1 Alamat Antar yang sama.
+                                    <p>4. Pemesanan hanya dapat dilakukan untuk 1 nama dengan 1 alamat antar yang sama.
                                         Pemesanan melebihi batas tersebut tidak akan diproses.</p>
                                     <input type="checkbox" id="persetujuan" name="persetujuan" value="Setuju" required>
-                                    <label for="persetujuan"> Dengan ini saya menyetujui syarat dan ketentuan diatas *</label><br>
+                                    <label for="persetujuan"> Dengan ini saya menyetujui syarat dan ketentuan diatas
+                                        *</label><br>
+                                    <p class="mt-5">*Wajib diisi.</p>
                                     <!-- /.card-body -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="tab">
-                    <div class="card">
+
+
+                    <div class="tab">
                         <div class="card-header">
                             <h3 class="card-title">IDENTITAS PEMESAN</h3>
                         </div>
 
                         <div class="row">
 
-                            <div class="col-4">
-                                <div class="card-body">
-                                    <img src="{{ url('images/2.jpg') }}"
-                                        style="width:100%;height:300px;object-fit:cover;">
-                                </div>
-                            </div>
-
-                            <div class="col-8">
+                            <div class="col-12">
                                 <!-- /.card-header -->
                                 <div class="card-body">
-
+                                    <p>Mohon untuk mengisi identitas diri anda sebelum melakukan pemesanan.
+                                    </p>
                                     <div class="form-group mt-2">
                                         <label for="nama">Nama</label>
                                         <input type="text" class="form-control mt-0" id="nama" name="nama"
@@ -93,14 +77,14 @@
 
                                     <div class="form-group mt-2">
                                         <label for="nomor_telepon">Nomor HP</label>
-                                        <input type="text" class="form-control mt-0" id="nomor_telepon"
-                                            name="nomor_telepon" maxlength="50" required>
+                                        <input type="number" class="form-control mt-0" id="nomor_telepon"
+                                            name="nomor_telepon" maxlength="20" required>
                                     </div>
 
                                     <div class="form-group mt-2">
                                         <label for="alamat_pengantaran">Alamat Pengantaran</label>
                                         <input type="text" class="form-control mt-0" id="alamat_pengantaran"
-                                            name="alamat_pengantaran" maxlength="50" required>
+                                            name="alamat_pengantaran" maxlength="255" required>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -108,17 +92,15 @@
 
                         </div>
                     </div>
-                </div>
 
-                <div class="tab">
-                    <div class="card">
+                    <div class="tab">
                         <div class="card-header">
                             <h3 class="card-title">RINCIAN PESANAN</h3>
                         </div>
 
                         <div class="row">
 
-                            <div class="col-8">
+                            <div class="col-12">
 
                                 <div class="card-body">
                                     <?php
@@ -129,20 +111,22 @@
                                     $perulangan++;
                                     ?>
                                     <div class="form-group mt-2">
-                                        <label for="kode_item">{{$item->nama_menu}}</label><br>
+                                        <label for="kode_item">{{$item->nama_menu}} (Rp{{number_format($item->harga)}} / {{$item->satuan}})</label><br>
                                         <input type="hidden" value="{{$item->id_menu}}" name="id_menu_{{$perulangan}}">
                                         <select name="jumlah_order_{{$perulangan}}" class="form-control mt-0" required
                                             required>
                                             @if($item->min_order > $item->max_order)
-                                            @for ($i = $item->max_order; $i <= $item->min_order; $i++)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
+                                                <option value="0" selected>Tidak Membeli</option>
+                                                @for ($i = $item->max_order; $i <= $item->min_order; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
                                             @else
-                                            @for ($i = $item->min_order; $i <= $item->max_order; $i++)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
+                                                <option value="0" selected>Tidak Membeli</option>
+                                                @for ($i = $item->min_order; $i <= $item->max_order; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
                                             @endif
-                                            
+
                                         </select>
                                     </div>
 
@@ -151,28 +135,24 @@
                                 </div>
                             </div>
 
-                            <div class="col-4">
-                                <div class="card-body">
-                                    <img src="{{ url('images/3.jpg') }}" style="width:100%;height:100%;object-fit:cover;">
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-                </div>
 
-                <div style="overflow:auto;">
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                        <button type="button" class="btn btn-success" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <div style="overflow:auto;">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary" id="prevBtn"
+                                onclick="nextPrev(-1)">Sebelumnya</button>
+                            <button type="button" class="btn btn-success" id="nextBtn"
+                                onclick="nextPrev(1)">Selanjutnya</button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Circles which indicates the steps of the form: -->
-                <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
+                    <!-- Circles which indicates the steps of the form: -->
+                    <div style="text-align:center;margin-top:40px;margin-bottom:20px">
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                    </div>
                 </div>
             </form>
         </div>
@@ -194,9 +174,9 @@
             document.getElementById("prevBtn").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Submit";
+            document.getElementById("nextBtn").innerHTML = "Simpan";
         } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("nextBtn").innerHTML = "Selanjutnya";
         }
         //... and run a function that will display the correct step indicator:
         fixStepIndicator(n)
@@ -229,11 +209,20 @@
         // A loop that checks every input field in the current tab:
         for (i = 0; i < y.length; i++) {
             // If a field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                valid = false;
+            if (y[i].type=='checkbox') {
+                if (y[i].checked){
+                    y[i].className += " valid";
+                }else{
+                    y[i].className += " invalid";
+                    valid = false;
+                }
+            }else{
+                if (y[i].value == "") {
+                    // add an "invalid" class to the field:
+                    y[i].className += " invalid";
+                    // and set the current valid status to false
+                    valid = false;
+                }
             }
         }
         // If the valid status is true, mark the step as finished and valid:
@@ -255,18 +244,9 @@
 </script>
 
 <script type="text/javascript">
-    var $formAdd = $("#formAdd");
+    var $formAdd = $("#regForm");
     $formAdd.submit(function () {
         $formAdd.submit(function () {
-            return false;
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    var $formEdit = $("#formEdit");
-    $formEdit.submit(function () {
-        $formEdit.submit(function () {
             return false;
         });
     });
