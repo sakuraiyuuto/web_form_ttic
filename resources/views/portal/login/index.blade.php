@@ -23,7 +23,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Web Formulir</b> TTIC</a>
+                <div class="h1"><b>Web Formulir</b> TTIC</div>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Login menggunakan akun google anda sebelum mengisi formulir.</p>
