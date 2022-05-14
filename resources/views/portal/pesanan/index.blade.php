@@ -283,10 +283,12 @@
     </script>
 
     <script>
-        firebase.auth().signOut().then(() => {
-            $(location).attr('href', "{{ url('/') }}");
-        }).catch((error) => {
-            // An error happened.
-        });
+        function logOut() {
+            firebase.auth().signOut().then(() => {
+                $(location).attr('href', "{{ url('/') }}");
+            }).catch((error) => {
+                // An error happened.
+            });
+        }
     </script>
 @endsection
