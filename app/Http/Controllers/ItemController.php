@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class ItemController extends Controller
 {
+    public function __construct()
+    {
+        if (Session::get('user_login') == false) {
+            return redirect('login');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -52,12 +60,12 @@ class ItemController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/')->with('alert', 'Ada kesalahan data, coba lagi.');
+            return redirect('/pemesanan')->with('alert', 'Ada kesalahan data, coba lagi.');
         } else {
 
             $nomorInvoice  = Item::dapatkanNomorInvoiceTerakhir();
 
-            $invoice = item::tambahInvoice($nomorInvoice, '1', '-', $request->alamat_pengantaran);
+            $invoice = item::tambahInvoice($nomorInvoice,  Session::get('pelanggan_id'), '-', $request->alamat_pengantaran);
 
             $gerai = Item::getGerai('221');
 
@@ -73,7 +81,7 @@ class ItemController extends Controller
 
                 Item::tambahOrderMakanan(
                     $invoice,
-                    '1',
+                    Session::get('pelanggan_id'),
                     $gerai->nama_gerai,
                     $menuGerai->nama_menu,
                     $gerai->alamat_lengkap,
@@ -87,7 +95,7 @@ class ItemController extends Controller
                     $idMenu
                 );
             }
-            return redirect('/')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
+            return redirect('/pemesanan')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
         }
     }
 }
