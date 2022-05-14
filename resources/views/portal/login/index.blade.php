@@ -192,7 +192,7 @@
                         'tauth': idToken
                     },
                     function(data, status) {
-                        $(location).attr('href', "{{ url('pemesanan') }}");
+                        $(location).attr('href', "{{ url('/pemesanan') }}");
                         $('#google').html("Masuk Dengan Google");
                     }, 'json'); //
             }).catch(function(error) {

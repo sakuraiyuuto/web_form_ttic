@@ -3,6 +3,7 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RedirectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', ItemController::class);
-Route::resource('/login', LoginController::class);
-
-
-Route::get('/pemesanan', [LoginController::class, 'index']);
+Route::get('/', [RedirectController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login/authentication', [LoginController::class, 'authentication']);
+
+Route::resource('/pemesanan', ItemController::class);

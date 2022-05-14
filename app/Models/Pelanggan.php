@@ -11,28 +11,42 @@ class Pelanggan extends Model
     use HasFactory;
 
     public static function tambahPelanggan(
-        $name,
-        $email,
-        $password,
+        $nama,
         $username,
-        $emailVerified,
-        $photoUrl,
-        $isAnonymous,
-        $uId,
-        $providerData,
-        $dateTimeCreated
+        $email,
+        $telp,
+        $alamat,
+        $password,
+        $hash,
+        $createdAt,
+        $isVerified,
+        $androidToken,
+        $firebaseToken,
+        $idTarif,
+        $uid,
+        $tipeLogin,
+        $sumberLogin,
+        $sumberId,
+        $photoUrl
     ) {
-        $pelanggan =  DB::table('tbl_admin_gerai')->insertGetId([
-            'nama' => $name,
-            'email' => $email,
-            'password' => $password,
+        $pelanggan =  DB::table('tbl_pelanggan')->insertGetId([
+            'nama' => $nama,
             'username' => $username,
-            'emailverified' => $emailVerified,
-            'photourl' => $photoUrl,
-            'isanonymous' => $isAnonymous,
-            'uid' => $uId,
-            'providerdata' => $providerData,
-            'datetime_created' => $dateTimeCreated,
+            'email' => $email,
+            'telp' => $telp,
+            'alamat' => $alamat,
+            'password' => $password,
+            'hash' => $hash,
+            'created_at' => $createdAt,
+            'is_verified' => $isVerified,
+            'android_token' => $androidToken,
+            'firebase_token' => $firebaseToken,
+            'id_tarif' => $idTarif,
+            'uid' => $uid,
+            'tipe_login' => $tipeLogin,
+            'sumber_login' => $sumberLogin,
+            'sumber_id' => $sumberId,
+            'photourl' => $photoUrl
         ]);
 
         return $pelanggan;
@@ -40,8 +54,22 @@ class Pelanggan extends Model
 
     public static function cekUID($uid)
     {
-        $jumlahUid = DB::table('tbl_admin_gerai')->where('uid', '=', $uid)->count();
+        $jumlahUid = DB::table('tbl_pelanggan')->where('uid', '=', $uid)->count();
 
         return $jumlahUid;
+    }
+
+    public static function dapatkanDataPelangganUID($uid)
+    {
+        $pelanggan = DB::table('tbl_pelanggan')->where('uid', '=', $uid)->first();
+
+        return $pelanggan;
+    }
+
+    public static function dapatkanDataPelangganId($id)
+    {
+        $pelanggan = DB::table('tbl_pelanggan')->where('id_pelanggan', '=', $id)->first();
+
+        return $pelanggan;
     }
 }
