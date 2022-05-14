@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-warning">
             <div class="card-header text-center">
                 <div class="h1"><b>Web Formulir</b> TTIC</div>
             </div>

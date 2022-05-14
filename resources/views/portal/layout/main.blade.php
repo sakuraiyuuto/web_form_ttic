@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{url('/template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 
     <!-- Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
         input.invalid {
@@ -41,7 +41,7 @@
             width: 15px;
             margin: 0 2px;
             background-color: #5e5e5e;
-            border: none;  
+            border: none;
             border-radius: 50%;
             display: inline-block;
             opacity: 0.5;
@@ -51,7 +51,7 @@
             opacity: 1;
         }
 
-            /* Mark the steps that are finished and valid: */
+        /* Mark the steps that are finished and valid: */
         .step.finish {
             background-color: #fac400;
         }
@@ -63,6 +63,22 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light"
+        style="width:100%;padding-left:0;margin-left:0">
+        <!-- Left navbar links -->
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" onclick=logOut()>
+                    <i class="fas fa-sign-out-alt text-danger mr-2"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+    </nav>
     <div class="wrapper">
 
         <!-- /.navbar -->
@@ -99,7 +115,8 @@
     <!-- jQuery Knob Chart -->
     <script src="{{url('/template/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
     <!-- daterangepicker -->
-    <script src="{{url('/template/plugins/moment/moment.min.js')}}"></script></script>
+    <script src="{{url('/template/plugins/moment/moment.min.js')}}"></script>
+    </script>
     <script src="{{url('/template/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{url('/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
@@ -128,10 +145,10 @@
     <script src="{{url('/template/dist/js/adminlte.min.js')}}"></script>
 
     <script src="{{url('/template/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-    
+
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    
+
 </body>
 @yield('script')
 

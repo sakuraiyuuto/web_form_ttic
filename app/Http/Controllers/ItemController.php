@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -95,7 +96,7 @@ class ItemController extends Controller
                     $idMenu
                 );
             }
-            return redirect('/pemesanan')->with('status', 'Himpunan Mahasiswa Berhasil Diubah');
+            return redirect('/pemesanan')->with('status', 'Pesanan berhasil disimpan.');
         }
     }
 }
